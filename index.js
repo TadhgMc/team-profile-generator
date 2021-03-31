@@ -49,7 +49,7 @@ const runInquirerEngineer = () => {
     const engineerPrompt = [{
         type: 'input',
         message: `What is this Engineer's GitHub account name?`,
-        name: 'github',
+        name: 'gitHub',
     },];
     return inquirer
         .prompt(engineerPrompt);
@@ -65,9 +65,6 @@ const runInquirerIntern = () => {
         .prompt(internPrompt);
 };
 
-
-
-//put promise into a for loop, then use anothaOne to add to the loop number to loop again?
 
 async function buildTeam(){
     let employeeArray = [];
@@ -85,13 +82,15 @@ async function buildTeam(){
                                 this.employee = new Manager(name,id,email,officeNumber,title);
                                 employeeArray.push(employee);
                                 console.log(employee);
+                                numOfEmployees++;
                                 resolve("done");
-                            });/*return the answer in here --also add 'resolve("done)' to end of this--*/
+                            });
                         } else if(title == 'Engineer'){
                             runInquirerEngineer().then(function({gitHub}){
                                 this.employee = new Engineer(name,id,email,gitHub,title);
                                 employeeArray.push(employee);
                                 console.log(employee);
+                                numOfEmployees++;
                                 resolve("done");
                             });
                         } else if(title == 'Intern') {
@@ -99,6 +98,7 @@ async function buildTeam(){
                                 this.employee = new Intern(name,id,email,school,title);
                                 employeeArray.push(employee);
                                 console.log(employee);
+                                numOfEmployees++;
                                 resolve("done");
                             });
                         } else {
@@ -117,23 +117,10 @@ async function buildTeam(){
             const result = await promise;
             console.log(result);
     } 
+    console.log(employeeArray);
 };
 
-// const anothaOne = () => {
-//     const anotherEmployee = [{
-//         type: 'choice',
-//         message: 'Would you like to add another employee?',
-//         name: 'moreEmployees',
-//     }, ];
-//     return inquirer
-//         .prompt(anotherEmployee)
-//         .then((moreEmployee) => {
-//                         if (moreEmployee){
-//                             return numOfEmployees++;
-//                         }else{
-//                             console.log('no more employee');
-//                         }
-//                         });
-// }
+
+
 
 buildTeam();
