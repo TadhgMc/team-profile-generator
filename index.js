@@ -65,44 +65,51 @@ const runInquirerIntern = () => {
         .prompt(internPrompt);
 };
 
+const anothaOne = () => {
+    const anotherEmployee = [{
+        type: 'choice',
+        message: 'Would you like to add another employee?',
+    }, ];
+    return inquirer
+        .prompt(anotherEmployee);
+}
+
+
 async function buildTeam(){
     let employeeArray = [];
     const promise = new Promise((resolve,reject) => {
         runInquirer()
-            .then(function(title) {
+            .then(function({title}) {
                 runInquirerEmployee().then(function({name,id,email}){
+                    console.log(name,id,email);
                     console.log(title);
-                    switch (title) {
-                        case 'Manager':
-                            runInquirerManager().then(function({officeNumber}){
-                                this.employee = new Manager(name,id,email,officeNumber,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                resolve("done");
-                            });/*return the answer in here --also add 'resolve("done)' to end of this--*/
-                            break;
-                        case 'Engineer':
-                            runInquirerEngineer().then(function({gitHub}){
-                                this.employee = new Engineer(name,id,email,gitHub,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                resolve("done");
-                            });
-                            break;
-                        case 'Intern':
-                            runInquirerIntern().then(function({school}){
-                                this.employee = new Intern(name,id,email,school,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                resolve("done");
-                            });
-                            break;
-                        default:
-                            console.log('there has been an issue');
+                    if (title == 'Manager'){
+                        runInquirerManager().then(function({officeNumber}){
+                            this.employee = new Manager(name,id,email,officeNumber,title);
+                            employeeArray.push(employee);
+                            console.log(employee);
+                            resolve("done");
+                        });/*return the answer in here --also add 'resolve("done)' to end of this--*/
+                    } else if(title == 'Engineer'){
+                        runInquirerEngineer().then(function({gitHub}){
+                            this.employee = new Engineer(name,id,email,gitHub,title);
+                            employeeArray.push(employee);
+                            console.log(employee);
+                            resolve("done");
+                        });
+                    } else if(title == 'Intern') {
+                        runInquirerIntern().then(function({school}){
+                            this.employee = new Intern(name,id,email,school,title);
+                            employeeArray.push(employee);
+                            console.log(employee);
+                            resolve("done");
+                        });
+                    } else {
+                        console.log('there has been an issue');
+                    };
 
-                };//end switch
-
-                });// end of runInquirerEmployee .need to start the employee's object here?
+                } /*end of runInquirerEmployee function*/ )
+                .catch((err) => console.log(err))// end of runInquirerEmployee .then -- .need to start the employee's object here?
                  
             })//end of '.then(function(title) {'
 
