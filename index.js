@@ -70,21 +70,40 @@ async function buildTeam(){
     const promise = new Promise((resolve,reject) => {
         runInquirer()
             .then(function(title) {
-                runInquirerEmployee().then(/* need to start the employee's object here? */);
+                runInquirerEmployee().then(function({name,id,email}){
                 switch(title){
                     case 'Manager':
-                        runInquirerManager().then(/*return the answer in here --also add 'resolve("done)' to end of this--*/);
+                        runInquirerManager().then(function({officeNumber}){
+                            this.employee = new Manager(name,id,email,officeNumber,title);
+                            employeeArray.push(employee);
+                            resolve("done");
+                        });/*return the answer in here --also add 'resolve("done)' to end of this--*/
                         break;
                     case 'Engineer':
-                        runInquirerEngineer().then();
+                        runInquirerEngineer().then(function({gitHub}){
+                            this.employee = new Engineer(name,id,email,gitHub,title);
+                            employeeArray.push(employee);
+                            resolve("done");
+                        });
                         break;
                     case 'Intern':
-                        runInquirerIntern().then();
+                        runInquirerIntern().then(function({school}){
+                            this.employee = new Intern(name,id,email,school,title);
+                            employeeArray.push(employee);
+                            resolve("done");
+                        });
                         break;
-                }
-                // make employee objects inside of switch or here? 
-            })
-    })
+                    default:
+                        console.log('there has been an issue');
+
+                };//end switch
+
+                });// end of runInquirerEmployee .need to start the employee's object here?
+                 
+            })//end of '.then(function(title) {'
+
+    })//end of promise
+
     const result = await promise;
     console.log(result); 
 };
