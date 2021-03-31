@@ -67,5 +67,28 @@ const runInquirerIntern = () => {
 
 async function buildTeam(){
     let employeeArray = [];
+    const promise = new Promise((resolve,reject) => {
+        runInquirer()
+            .then(function(title) {
+                runInquirerEmployee().then(/* need to start the employee's object here? */);
+                switch(title){
+                    case 'Manager':
+                        runInquirerManager().then(/*return the answer in here --also add 'resolve("done)' to end of this--*/);
+                        break;
+                    case 'Engineer':
+                        runInquirerEngineer().then();
+                        break;
+                    case 'Intern':
+                        runInquirerIntern().then();
+                        break;
+                }
+                // make employee objects inside of switch or here? 
+            })
+    })
+    const result = await promise;
+    console.log(result); 
+};
 
-}
+
+
+buildTeam();
