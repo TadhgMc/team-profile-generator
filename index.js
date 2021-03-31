@@ -8,7 +8,7 @@ const { async } = require('rxjs');
 
 function runInquirer(){
     const initPrompt = [{
-        type: 'confirm',
+        type: 'list',
         message: 'What is your job title?',
         name: 'title',
         choices: ['Manager', 'Engineer', 'Intern'],
@@ -71,30 +71,34 @@ async function buildTeam(){
         runInquirer()
             .then(function(title) {
                 runInquirerEmployee().then(function({name,id,email}){
-                switch(title){
-                    case 'Manager':
-                        runInquirerManager().then(function({officeNumber}){
-                            this.employee = new Manager(name,id,email,officeNumber,title);
-                            employeeArray.push(employee);
-                            resolve("done");
-                        });/*return the answer in here --also add 'resolve("done)' to end of this--*/
-                        break;
-                    case 'Engineer':
-                        runInquirerEngineer().then(function({gitHub}){
-                            this.employee = new Engineer(name,id,email,gitHub,title);
-                            employeeArray.push(employee);
-                            resolve("done");
-                        });
-                        break;
-                    case 'Intern':
-                        runInquirerIntern().then(function({school}){
-                            this.employee = new Intern(name,id,email,school,title);
-                            employeeArray.push(employee);
-                            resolve("done");
-                        });
-                        break;
-                    default:
-                        console.log('there has been an issue');
+                    console.log(title);
+                    switch (title) {
+                        case 'Manager':
+                            runInquirerManager().then(function({officeNumber}){
+                                this.employee = new Manager(name,id,email,officeNumber,title);
+                                employeeArray.push(employee);
+                                console.log(employee);
+                                resolve("done");
+                            });/*return the answer in here --also add 'resolve("done)' to end of this--*/
+                            break;
+                        case 'Engineer':
+                            runInquirerEngineer().then(function({gitHub}){
+                                this.employee = new Engineer(name,id,email,gitHub,title);
+                                employeeArray.push(employee);
+                                console.log(employee);
+                                resolve("done");
+                            });
+                            break;
+                        case 'Intern':
+                            runInquirerIntern().then(function({school}){
+                                this.employee = new Intern(name,id,email,school,title);
+                                employeeArray.push(employee);
+                                console.log(employee);
+                                resolve("done");
+                            });
+                            break;
+                        default:
+                            console.log('there has been an issue');
 
                 };//end switch
 
