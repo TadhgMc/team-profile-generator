@@ -76,51 +76,63 @@ async function buildTeam(){
                     if(title === 'Finish'){        
                         resolve('done');
                     } else {
-                    runInquirerEmployee().then(function({name,id,email}){
-                        if (title == 'Manager'){
-                            runInquirerManager().then(function({officeNumber}){
-                                this.employee = new Manager(name,id,email,officeNumber,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                numOfEmployees++;
-                                resolve("done");
-                            });
-                        } else if(title == 'Engineer'){
-                            runInquirerEngineer().then(function({gitHub}){
-                                this.employee = new Engineer(name,id,email,gitHub,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                numOfEmployees++;
-                                resolve("done");
-                            });
-                        } else if(title == 'Intern') {
-                            runInquirerIntern().then(function({school}){
-                                this.employee = new Intern(name,id,email,school,title);
-                                employeeArray.push(employee);
-                                console.log(employee);
-                                numOfEmployees++;
-                                resolve("done");
-                            });
-                        } else {
-                            console.log('there has been an issue');
-                        };
-                        
-                    },
+                        runInquirerEmployee().then(function({name,id,email}){
+                            switch(title){
+                            case 'Manager':
+                                runInquirerManager().then(function({officeNumber}){
+                                    this.employee = new Manager(name,id,email,officeNumber,title);
+                                    employeeArray.push(employee);
+                                    numOfEmployees++;
+                                    resolve("done");
+                                });
+                            case 'Engineer':
+                                runInquirerEngineer().then(function({gitHub}){
+                                    this.employee = new Engineer(name,id,email,gitHub,title);
+                                    employeeArray.push(employee);
+                                    numOfEmployees++;
+                                    resolve("done");
+                                });
+                            case 'Intern':
+                                runInquirerIntern().then(function({school}){
+                                    this.employee = new Intern(name,id,email,school,title);
+                                    employeeArray.push(employee);
+                                    numOfEmployees++;
+                                    resolve("done");
+                                });
+                            default:
+                                console.log('there has been an issue');
+                            };//switch
+                        } ).catch((err) => console.log(err))// end of runInquirerEmployee .then ;
+                    }
 
-                    
-                    ).catch((err) => console.log(err))// end of runInquirerEmployee .then
-                }
+                })//end of '.then(function(title) {' ;
 
-                })//end of '.then(function(title) {'
+        } ).catch((err) => console.log(err))//end of whole promise;
 
-        } ).catch((err) => console.log(err))//end of promise
-            const result = await promise;
-            console.log(result);
-    } 
+        const result = await promise;
+        console.log(result);
+
+    } //end of 'for' loop
+
     console.log(employeeArray);
-};
+
+    function whichTitle(employee){
+        switch(employee.title){
+            case 'Manager':
+                return `Office Number: ${employee.officeNumber}`;
+            case 'Engineer':
+                return `Github Account: ${employee.gitHub}`;
+            case 'Intern':
+                return `Attending: ${employee.school}`;
+        };
+    }
 
 
+}; // end of buildTeam();
 
+//need to make function that displays title specific info
+//call that function, in a funciton that creates the html cards (for loop to create each card)
+//call the function to create html cards, into a varible that has the rest of the html content
+//all that still in the async func
 
 buildTeam();
