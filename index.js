@@ -78,29 +78,32 @@ async function buildTeam(){
                     } else {
                         runInquirerEmployee().then(function({name,id,email}){
                             switch(title){
-                            case 'Manager':
-                                runInquirerManager().then(function({officeNumber}){
-                                    this.employee = new Manager(name,id,email,officeNumber,title);
-                                    employeeArray.push(employee);
-                                    numOfEmployees++;
-                                    resolve("done");
-                                });
-                            case 'Engineer':
-                                runInquirerEngineer().then(function({gitHub}){
-                                    this.employee = new Engineer(name,id,email,gitHub,title);
-                                    employeeArray.push(employee);
-                                    numOfEmployees++;
-                                    resolve("done");
-                                });
-                            case 'Intern':
-                                runInquirerIntern().then(function({school}){
-                                    this.employee = new Intern(name,id,email,school,title);
-                                    employeeArray.push(employee);
-                                    numOfEmployees++;
-                                    resolve("done");
-                                });
-                            default:
-                                console.log('there has been an issue');
+                                case 'Manager':
+                                    runInquirerManager().then(function({officeNumber}){
+                                        this.employee = new Manager(name,id,email,officeNumber,title);
+                                        employeeArray.push(employee);
+                                        numOfEmployees++;
+                                        resolve("done");
+                                    });
+                                    break;
+                                case 'Engineer':
+                                    runInquirerEngineer().then(function({gitHub}){
+                                        this.employee = new Engineer(name,id,email,gitHub,title);
+                                        employeeArray.push(employee);
+                                        numOfEmployees++;
+                                        resolve("done");
+                                    });
+                                    break;
+                                case 'Intern':
+                                    runInquirerIntern().then(function({school}){
+                                        this.employee = new Intern(name,id,email,school,title);
+                                        employeeArray.push(employee);
+                                        numOfEmployees++;
+                                        resolve("done");
+                                    });
+                                    break;
+                                default:
+                                    console.log('there has been an issue');
                             };//switch
                         } ).catch((err) => console.log(err))// end of runInquirerEmployee .then ;
                     }
@@ -110,11 +113,11 @@ async function buildTeam(){
         } ).catch((err) => console.log(err))//end of whole promise;
 
         const result = await promise;
-        console.log(result);
+        console.log(result); //DONT PUSH ME
 
     } //end of 'for' loop
 
-    console.log(employeeArray);
+    console.log(employeeArray); //DONT PUSH ME
 
     function whichTitle(employee){
         switch(employee.title){
@@ -127,6 +130,12 @@ async function buildTeam(){
         };
     }
 
+    function htmlCardMakur(){
+        let empCard = '';
+        for (let j = 0; j < numOfEmployees; j++){
+            console.log(employeeArray[j]); //DONT PUSH ME
+        }
+    }
 
 }; // end of buildTeam();
 
