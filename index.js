@@ -122,11 +122,11 @@ async function buildTeam(){
     function whichTitle(employee){
         switch(employee.title){
             case 'Manager':
-                return `Office Number: ${employee.officeNumber}`;
+                return `<li class="list-group-item">Office Number: ${employee.officeNumber}</li>`;
             case 'Engineer':
-                return `Github Account: ${employee.gitHub}`;
+                return `<a class="list-group-item" href="https://github.com/${employee.gitHub}" target="_blank">Github Account: ${employee.gitHub}</a>`;
             case 'Intern':
-                return `Attending: ${employee.school}`;
+                return `<li class="list-group-item">Attending: ${employee.school}</li>`;
         };
     }
 
@@ -143,8 +143,8 @@ async function buildTeam(){
             </div>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${employeeArray[j].id}</li>
-                <li class="list-group-item">${whichTitle(employeeArray[j])}</li>
-                <li class="list-group-item">Email: ${employeeArray[j].email}</li>
+                ${whichTitle(employeeArray[j])}
+                <a class="list-group-item" href="mailto:${employeeArray[j].email}" target="_blank">Email: ${employeeArray[j].email}</a>
             </ul>
         </div>
             `;
@@ -180,7 +180,7 @@ async function buildTeam(){
 </html>
     `;
 
-    fs.writeFile('TeamPage.html', htmlContent, (err) => err ? console.log(err + '/n @write file') : console.log('Successfully created page!'))
+    fs.writeFile('./dist/TeamPage.html', htmlContent, (err) => err ? console.log(err + '/n @write file') : console.log('Successfully created page!'))
 
 }; // end of buildTeam();
 
