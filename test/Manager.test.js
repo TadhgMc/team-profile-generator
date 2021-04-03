@@ -1,4 +1,4 @@
-const Manager = require("../../class-lib/Manager");
+const Manager = require("../lib/Manager");
 
 describe("Manager class", () => {
     const Greg = new Manager("Greg","id:123","email","officeNum: 123","Manager")

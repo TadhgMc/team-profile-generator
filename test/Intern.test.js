@@ -1,4 +1,4 @@
-const Intern = require("../../class-lib/Intern");
+const Intern = require("../lib/Intern");
 
 describe("Intern class", () => {
     const Greg = new Intern("Greg","id:123","email","school:osu","Intern")
