@@ -10,17 +10,7 @@ Command-Line app that makes a webpage to help keep track of employee info.
 - [Usage](#Usage)
 
 ## Installation
-Please run the following commands before running this app, 
-```bash
-npm init
-```
- ```bash
- npm i
-```
- ```bash
- npm i inquirer
-```
-Thank you!
+
 ---
 
 ## Usage
